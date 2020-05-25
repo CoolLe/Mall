@@ -1,0 +1,422 @@
+@charset "UTF-8";
+/*设置字符集*/
+/*css 初始化 */
+html, body, ul, li, ol, dl, dd, dt, p, h1, h2, h3, h4, h5, h6, form, fieldset, legend, img {
+    margin: 0;
+    padding: 0;
+}
+/*清除默认padding和margin*/
+fieldset, img, input, button {
+    border: none;
+    padding: 0;
+    margin: 0;
+    outline-style: none;
+}
+/*清除表单类标签默认样式*/
+ul, ol {
+    list-style: none;
+}
+/*清除列表小圆点或序号*/
+input {
+    padding-top: 0;
+    padding-bottom: 0;
+    font-family: "SimSun", "宋体";
+}
+/*清除文本框上下padding，并设置字体*/
+select, input {
+    vertical-align: middle;
+}
+/*设置下拉列表和表单的垂直对齐方式。*/
+select, input, textarea {
+    font-size: 12px;
+    margin: 0;
+}
+/*设置上述标签的字体大小和并清除margin*/
+textarea {
+    resize: none;
+}
+/*固定文本框大小，用户无法调整元素的尺寸。*/
+/*防止拖动*/
+img {
+    border: 0;
+    vertical-align: middle;
+}
+/*  设置图片的垂直方式，可以去掉图片底侧默认的3像素空白缝隙*/
+table {
+    border-collapse: collapse;
+}
+/*合并表格边框*/
+body {
+    font: 12px/150% Arial, Verdana, "\5b8b\4f53";
+    color: #666;
+    background: #fff
+}
+/*字号 行高 字体 合写。 Arial, Verdana指的是宋体，"\5b8b\4f53" 是宋体的另一种表示方式，工作中用得比较多*/
+.clearfix:before, .clearfix:after {
+    content: "";
+    display: table;
+}
+.clearfix:after {
+    clear: both;
+}
+.clearfix {
+    *zoom: 1; /*IE/7/6兼容*/
+}
+/*清除浮动的方式，双伪元素清除浮动*/
+a {
+    color: #666;
+    text-decoration: none;
+}
+/*清除a下划线，并设置字体颜色*/
+a:hover {
+    color: #C81623;
+}
+/*设置悬浮时的颜色*/
+h1, h2, h3, h4, h5, h6 {
+    text-decoration: none;
+    font-weight: normal;
+    font-size: 100%;
+}
+/*设置标题元素的文本修饰和字号*/
+s, i, em {
+    font-style: normal;
+    text-decoration: none;
+}
+/*用作css钩子，里面放一下比较小的内容*/
+.col-red {
+    color: #C81623 !important;
+}
+/*文档的颜色*/
+.w {
+    width: 1210px;
+    margin: 0 auto;
+    /*height: 30px;*/
+}
+/*版心 */
+.fl {
+    float: left
+}
+.fr {
+    float: right
+}
+.al {
+    text-align: left
+}
+.ac {
+    text-align: center
+}
+.ar {
+    text-align: right
+}
+.hide {
+    display: none
+}
+.header {
+    height: 30px;
+    width: 100%;
+    line-height: 30px;
+    background-color: #f1f1f1;
+}
+.header .dt,.header .xsj{
+    padding: 0 20px 0 10px;
+    /*测量样图，dt盒子左边有一个10px的间隔。布局宽高最稳定、其次padding，最后margin。
+    而且margin使用有兼容问题，所以尽量用margin表示兄弟盒子之间间距。
+    所以，使用padding把表示盒子与版心隔开10px。dt盒子右边距可以根据实际情况设置大小，这里设置20px。*/
+    position: relative;
+    /*子绝父相法则：i盒子要想以某个盒子为参照进行绝对定位，那么，参照的父盒子要相对定位。*/
+}
+.header .dt i,.xsj i{
+    font: 400 15px "宋体";
+    /*设置菱形的加粗、字体和字号。700=bold */
+    /*font 合写的顺序：font-style | font-variant | font-weight |
+    font-size | line-height | font-family*/
+    position: absolute;
+    /*绝对定位，一个盒子绝对定位之后就可以设置宽高了。绝对定位不占位置*/
+    width: 15px;
+    /*设置i盒子的宽度有讲究，使其正好和菱形字号相等*/
+    height: 7px;
+    /*i盒子的高也有讲究，使其正好是菱形字号的一半。这样菱形的下半部分正好可以和i盒子重合。*/
+    top: 13px;
+    /*距离dt盒子上padding13px*/
+    right: 3px;
+    /*距离dt盒子的右padding3px。 如果你设置dt的右padding值不是20px，这个数值也要跟着改变。*/
+    /*background: pink;*/
+    overflow: hidden;
+}
+.dt s,.xsj s{
+    position: absolute;
+    /*s盒子也需要绝对定位，它的位置需要使i盒子和菱形的下半部分重合，如图7所示。*/
+    top: -8px;
+    /*top正值是往下移，要想往上移就用负值*/
+    left: 0;
+    /*因为设置i盒子的宽度和菱形的字号相同，这里可以不需要设置左边定位。
+    如果两者不一样宽度，左定位需要根据情况设置。*/
+}
+.fr li{
+    float: left;
+    /* 浮动不继承，这里需要让所有的li盒子左浮动，才能按顺序排在一行*/
+    padding:0 10px;
+    /*用padding挤开文字*/
+}
+.fr .line{
+    /*设置line的属性*/
+    width: 1px;
+    height: 12px;
+    _font-size: 0;
+    /*ie6不支持小于12px的盒子，解决办法：加上_font-size: 0;详情点击：http://blog.csdn.net/sinat_34647836/article/details/55004778*/
+    background-color: #ddd;
+    padding: 0;
+    /*padding会继承，如果这里不设置为0，这个微型盒子也会有10px的左右padding*/
+    margin-top:9px;
+    /*测量：使小竖线下移9px*/
+}
+.fr .jd-sj{
+    padding: 0 20px 0 25px;
+    /*因为要在前面添加手机图标，所以需要增加li盒子的左padding，层叠掉上面设置的padding，注意权重。*/
+}
+.jd-sj .sj{
+    position: absolute;
+    /*绝对定位，li盒子已经写过position:relative;*/
+    width: 15px;
+    height: 20px;
+    /*给盒子设置宽高，使其正好和图片大小相同*/
+    background: url(../img/sprite.png) no-repeat;
+    /*所用图片在精灵图第一个*/
+    left: 5px;
+    top: 5px;
+    /*相对于li盒子的定位*/
+}
+.topbanner{
+    background-color: #8A25C6;
+}
+.topbanner .tp{
+    position: relative;
+}
+.topbanner .close-tpbanner{
+    width: 19px;
+    height: 19px;
+    background: url(../img/close.png) no-repeat;
+    position: absolute;
+    /*它的父亲盒子是图片所在的盒子*/
+    right: 0;
+    top: 5px;
+}
+.close-tpbanner:hover{
+    background-position: bottom;
+    /*鼠标悬浮时，改变图片的位置*/
+}
+
+
+/*logo和动图*/
+.logo {
+    width: 360px;
+    height: 75px;
+    /*给logo大盒子设置宽高*/
+    /*background-color: pink;*/
+    float: left;
+    /*左浮动*/
+    padding-top: 25px;
+    /*logo盒子上padding为25px*/
+    background: url(../img/logo.png) no-repeat 0 25px;
+    /*背景属性综合写法：背景图地址，不重叠，向右移动量 向下移动量*/
+    position: relative;
+}
+.jd-a {
+    display: block;
+    width: 270px;
+    height: 60px;
+    /*整个图片都是a链接，所以要把a转块设置宽高*/
+    text-indent: -2000em;
+    /*通过这个属性，隐藏a标签里面的内容*/
+}
+.db11 {
+    position: absolute;
+    /*利用绝对定位，固定动图的位置，盖住logo多余的部分*/
+    width: 180px;
+    height: 80px;
+    /*background-color: pink;*/
+    top: 10px;
+    left: 168px;
+}
+
+/*搜索框*/
+.search {
+    /*width: 538px;*/
+    height: 35px;
+    background: pink;
+    /*最后要去掉背景颜色*/
+    float: left;
+    margin-top: 25px;
+}
+.search input{
+    float: left;
+    /*表单元素之间默认有几像素的间隔，可以通过浮动来清除*/
+    width: 450px;
+    /*height: 32px;*/
+    /*搜索框空白之间的高度*/
+    border: 2px solid #B61D1D;
+    padding-left: 4px;
+    /*文字离左边框有间距*/
+    color: #666;
+    font: 14px/32px "microsoft yahei";
+}
+.search button{
+    float: left;
+    width: 80px;
+    height: 36px;
+    background-color: #B61D1D;
+    font: 16px/36px "microsoft yahei";
+    color: #fff;
+    cursor: pointer; /* 鼠标变成小手*/
+}
+
+/*购物车*/
+.shoppingcar{
+    width: 96px;
+    padding-left: 43px;
+    float: right;
+    margin: 25px 65px 0 0;
+    /*上右下左*/
+    border: 1px solid #DFDFDF;
+    line-height: 34px;
+    /*行高等于盒子高，文本垂直居中*/
+    position: relative;
+    /*后面三个元素需要绝对定位，父亲盒子要相对定位*/
+}
+.shoppingcar .icon1{
+    position: absolute;
+    width: 16px;
+    height: 13px;
+    /*设置盒子的宽高*/
+    background: url(../img/sprite.png) no-repeat -1px -59px;
+    /*利用精灵图插入图片。精灵图的坐标以左上角为原点，所以一般为负值。*/
+    top: 10px;
+    left: 20px;
+}
+.shoppingcar .icon2{
+    font: 400 13px/13px simsun;
+    /*加粗、字号、行高、字体*/
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+.shoppingcar .icon3{
+    position: absolute;
+    width: 16px;
+    height: 14px;
+    background-color: #C81623;
+    font-size: 12px;
+    line-height: 14px;
+    text-align: center;
+    color: #fff;
+    top: -4px;
+    /*负值是往上移*/
+    border-radius: 7px 7px 7px 0;
+    /*给左上角、右上角、和右下角，圆角7px。*/
+    }
+
+/*热词*/
+.hotwords {
+    width: 500px;
+    padding: 7px 0;
+    float: left;
+    /*左浮动，父亲盒子右边没有空间，会自动落下一行，靠在logo盒子右边*/
+}
+.hotwords a {
+    margin-right: 6px;
+    /*每个a标签之间有个间距*/
+}
+
+/*全部菜单栏*/
+.jd-nav {
+    width: 100%;
+    height: 44px;
+    border-bottom: 2px solid #B1191A;
+}
+.dropdown {
+    width: 210px;
+    height: 44px;
+    float: left;
+    position: relative;
+    z-index: 10;
+    /*标准流的盒子层级是0，脱标的的盒子层级是1（浮动、定位）.因为下拉列表会盖住其他的盒子，所以要单独设定层级*/
+    overflow: visible;
+    /*dropdown盒子有点特殊，它自身和父亲盒子一样大小，下拉列表实际上就是它的兄弟，只是溢出了父亲盒子。这里用overflow: visible;
+    就是要溢出的兄弟显示出来*/
+}
+.navitems {
+    width: 680px;
+    height: 44px;
+    float: left;
+}
+.navitems li {
+    float: left;
+}
+.navitems li a {
+    display: block;
+    color: #333;
+    font:400 15px/44px "微软雅黑";
+    padding:0 20px;
+}
+.navitems li a:hover {
+    color: #B1191A;
+}
+.navitems li.new {
+    background: url(../img/new.jpg) no-repeat right top;
+    /*设定一个单独的类，有盒子需要添加图标，就给所在的盒子添加类名即可*/
+}
+.bike a {
+    float: right;
+    height: 44px;
+    width: 140px;
+    background:url(../img/bike.jpg) no-repeat;
+}
+.dropdown {
+    width: 210px;
+    height: 44px;
+    float: left;
+    position: relative;
+    z-index: 10;
+    /*标准流的盒子层级是0，脱标的的盒子层级是1（浮动、定位）.因为下拉列表会盖住其他的盒子，所以要单独设定层级*/
+    overflow: visible;
+    /*dropdown盒子有点特殊，它自身和父亲盒子一样大小，下拉列表实际上就是它的兄弟，只是溢出了父亲盒子。这里用overflow: visible;
+    就是要溢出的兄弟显示出来*/
+}
+.dropdown .dt a {
+    display: block;
+    font: 400 15px/44px "microsoft yahei";
+    background-color: #B1191A;
+    color: #fff;
+    padding-left: 10px;
+    /*文字和边框之间有距离*/
+}
+.dropdown .dd {
+    /*height: 465px;*/
+    /*先给第二个儿子设定宽高，宽高可由内容自动撑开，后面可以去掉*/
+    background-color: #C81623;
+    margin-top: 2px;
+    /*第二个儿子没有压住祖父盒子的下border，所以下移2px*/
+}
+.dropdown .items {
+    height: 31px;
+    /*有行高撑开，这里的高可以删掉*/
+    line-height: 31px;
+    border-left: 1px solid #B61D1D;
+    padding-left: 10px;
+    /*左边距离dd盒子有10px间距*/
+    color: #fff;
+    font-size: 15px;
+    font-family:"微软雅黑";
+    /*给每个列表设置样式*/
+}
+.dropdown .items h3 {
+    float: left;
+    /*每个div里有两个元素，字向左浮动，＞图标向右浮动*/
+}
+.dropdown .items span {
+    float: right;
+    margin-right: 15px;
+    font-family: "宋体";
+    font-weight: 600;
+    /*给＞图标设置样式*/
+}
