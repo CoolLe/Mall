@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.coolle.repository.ListRepository">
+
+    <resultMap id="select_list_by_flbh2_map" type="com.coolle.entity.OBJECT_MALL_SKU" autoMapping="true">
+        <id column="sku_id" property="id"></id>
+        <association property="spu" javaType="com.coolle.entity.MALL_PRODUCT" autoMapping="true">
+            <id column="spu_id" property="id"></id>
+        </association>
+        <association property="tm" javaType="com.coolle.entity.MALL_TRADE_MARK" autoMapping="true">
+            <id column="tm_id" property="id"></id>
+        </association>
+    </resultMap>
+
+    <select id="select_list_by_flbh2" parameterType="int" resultMap="select_list_by_flbh2_map">
+        select * from
+        mall_product spu,
+        mall_sku sku,
+        mall_trade_mark tm
+        where
+        spu.id = sku.id
+        and spu.pp_id = tm.id
+        and spu.flbh2 = #{flbh2}
+    </select>
+
+
+</mapper>
+

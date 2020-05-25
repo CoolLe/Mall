@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: 谈一乐
@@ -16,6 +17,13 @@
     <title>Title</title>
 </head>
 <body>
-    sku
+    <c:forEach items="${list_sku}" var="sku">
+        <div style="margin-left: 10px;float: left;border: 1px red solid;width: 250px;height: 250px">
+            <img src="upload/image/${sku.spu.shp_tp}" width="150px" height="150px"><br>
+            ${sku.sku_mch}<br>
+            ${sku.jg}<br>
+            ${sku.sku_xl}<br>
+        </div>
+    </c:forEach>
 </body>
 </html>
