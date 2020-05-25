@@ -24,6 +24,9 @@
         and spu.flbh2 = #{flbh2}
     </select>
 
+    <select id="select_list_by_attr" >
+
+    </select>
 
 </mapper>
 

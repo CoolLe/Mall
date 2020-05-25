@@ -34,6 +34,7 @@ public class IndexController {
 
         map.put("list_attr",list_attr);
         map.put("list_sku",list_sku);
+        map.put("flbh2",flbh2);
         return "list";
     }
 
