@@ -29,7 +29,6 @@
                 jsonStr = jsonStr + "&list_attr["+i+"].shxm_id="+json.shxm_id+"&list_attr["+i+"].shxzh_id="+json.shxzh_id;
             });
             //异步提交
-            alert(jsonStr);
             //刷新商品列表
             $.get("get_list_by_attr.do",jsonStr,function (data) {
                 $("#skuListInner").html(data);

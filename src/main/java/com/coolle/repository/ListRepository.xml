@@ -24,8 +24,19 @@
         and spu.flbh2 = #{flbh2}
     </select>
 
-    <select id="select_list_by_attr" >
-
+    <select id="select_list_by_attr" parameterType="Map" resultMap="select_list_by_flbh2_map">
+        select spu.id as spu_id , spu.* ,
+        sku.id as sku_id , sku.* ,
+        tm.id as tm_id , tm.* ,
+        from
+        mall_product spu,
+        mall_sku sku,
+        mall_trade_mark tm
+        where
+        spu.id = sku.shp_id
+        and spu.pp_id = tm.id
+        and spu.flbh2 = #{flbh2}
+        ${subSql}
     </select>
 
 </mapper>
