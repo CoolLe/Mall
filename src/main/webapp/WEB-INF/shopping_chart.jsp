@@ -50,12 +50,11 @@
                     <button type="button" class="btn btn-default" onclick="removeFromShoppingChart(${sku.id})">移除购物车</button>
                 </div>
                 <div class="row">
-                    <input type="text" id="count_${sku.id}" disabled value="1"></div>
+                <input type="text" id="count_${sku.id}" disabled value="${sku.count}"></div>
                 <button type="button" class="btn btn-default" id="prod_count_plus" onclick="calcPrice(${sku.id},true)" >+</button>
-
                 <button type="button" class="btn btn-default" id="prod_count_minus" onclick="calcPrice(${sku.id},false)">-</button>
                 </div>
-                <div id="prod_price_${sku.id}">${sku.jg}</div>
+                <div id="prod_price_${sku.id}">${sku.jg*sku.count}</div>
             </div>
     </div>
     <h5 class="page-header"></h5>
@@ -112,6 +111,8 @@
             if(oldCount===0 && !isIncrement){
                 return;
             }
+
+
             var newCount = 0;
             if(isIncrement){
                 newCount = parseInt(oldCount) +1;

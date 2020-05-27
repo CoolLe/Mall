@@ -30,6 +30,8 @@ import java.util.Set;
 
 @Controller
 public class IndexController {
+    private static final String shoppingChartPrefix = "mall:shoppingchart:";
+
     @Autowired
     private JedisPool jedisPool;
 
@@ -75,14 +77,22 @@ public class IndexController {
             try(Jedis jedis=jedisPool.getResource()){
                 Set<String> chart = jedis.smembers("mall:shoppingchart:"+user.getId());
                 for(String prodId:chart){
-                    products.add(listService.get_product(Integer.parseInt(prodId)));
+                    OBJECT_MALL_SKU sku = listService.get_product(Integer.parseInt(prodId));
+                    final String countKey = shoppingChartPrefix+user.getId()+":"+prodId;
+                    String count = jedis.get(countKey);
+                    if(count!=null){
+                        sku.setCount(Integer.parseInt(count));
+                    }else{
+                        sku.setCount(1);
+                    }
+                    products.add(sku);
                 }
             }
         }
         map.put("products",products);
         double result = 0;
         for(OBJECT_MALL_SKU product:products){
-           result+= product.getJg();
+           result+= product.getJg() * product.getCount();
         }
         map.put("init_price",result);
 
@@ -97,6 +107,8 @@ public class IndexController {
         if(user!=null){
             try(Jedis jedis=jedisPool.getResource()){
                 jedis.srem("mall:shoppingchart:"+user.getId(),String.valueOf(prodId));
+                final String countKey = shoppingChartPrefix+user.getId()+":"+prodId;
+                jedis.del(countKey);
             }
             return "ok";
         }
@@ -107,10 +119,18 @@ public class IndexController {
     @RequestMapping("add_to_shopping_chart")
     @ResponseBody
     public String addToShoppingChart(HttpSession session, @RequestParam("prod_id") int prodId){
+
         MALL_USER_ACCOUNT user = (MALL_USER_ACCOUNT) session.getAttribute("user");
         if(user!=null){
             try(Jedis jedis=jedisPool.getResource()){
-                jedis.sadd("mall:shoppingchart:"+user.getId(),String.valueOf(prodId));
+                jedis.sadd(shoppingChartPrefix+user.getId(),String.valueOf(prodId));
+                final String countKey = shoppingChartPrefix+user.getId()+":"+prodId;
+                String existingCount = jedis.get(countKey);
+                if(existingCount!=null){
+                    jedis.set(countKey, String.valueOf(Integer.parseInt(existingCount)+1));
+                }else{
+                    jedis.set(countKey,"1");
+                }
             }
             return "ok";
         }

@@ -1,6 +1,7 @@
 package com.coolle.entity;
 
 public class OBJECT_MALL_SKU extends MALL_SKU{
+    private int count;
 
     private MALL_PRODUCT spu;
     private MALL_TRADE_MARK tm;
@@ -20,4 +21,13 @@ public class OBJECT_MALL_SKU extends MALL_SKU{
     public void setTm(MALL_TRADE_MARK tm) {
         this.tm = tm;
     }
+
+    public int getCount() {
+        return count;
+    }
+
+    public void setCount(int count) {
+        this.count = count;
+    }
 }
+

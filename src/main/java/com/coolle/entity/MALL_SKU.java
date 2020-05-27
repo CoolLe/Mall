@@ -1,5 +1,6 @@
 package com.coolle.entity;
 
+import jdk.nashorn.internal.ir.annotations.Ignore;
 import lombok.Data;
 
 import java.util.Date;
