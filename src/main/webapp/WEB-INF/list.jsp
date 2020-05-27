@@ -18,6 +18,8 @@
 <body>
     <jsp:include page="attrList.jsp"></jsp:include>
     <hr>
-    <jsp:include page="SkuList.jsp"></jsp:include>
+    <div id="skuListInner">
+        <jsp:include page="skuList.jsp"></jsp:include>
+    </div>
 </body>
 </html>
