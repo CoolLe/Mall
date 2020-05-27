@@ -20,4 +20,10 @@ public class ListServiceImpl implements ListService {
         List<OBJECT_MALL_SKU> list_sku = listRepository.select_list_by_flbh2(flbh2);
         return list_sku;
     }
+
+    @Override
+    public OBJECT_MALL_SKU get_product(int kid) {
+        System.out.println("id"+kid);
+        return listRepository.select_product(kid);
+    }
 }

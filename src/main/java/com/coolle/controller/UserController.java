@@ -6,12 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 @Controller
-public class LoginController {
+public class UserController {
 
     @Autowired
     LoginRepository loginRepository;
@@ -25,6 +26,12 @@ public class LoginController {
         } else {
             session.setAttribute("user",select_user);
         }
+        return "redirect:/index.do";
+    }
+
+    @RequestMapping("logout")
+    public String logout(HttpSession session, MALL_USER_ACCOUNT user, HttpServletRequest request, ModelMap map){
+        session.removeAttribute("user");
         return "redirect:/index.do";
     }
 }

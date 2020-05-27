@@ -4,7 +4,7 @@
 <mapper namespace="com.coolle.repository.ListRepository">
 
     <resultMap id="select_list_by_flbh2_map" type="com.coolle.entity.OBJECT_MALL_SKU" autoMapping="true">
-        <id column="sku_id" property="id"></id>
+        <id column="id" property="id"></id>
         <association property="spu" javaType="com.coolle.entity.MALL_PRODUCT" autoMapping="true">
             <id column="spu_id" property="id"></id>
         </association>
@@ -22,8 +22,16 @@
         spu.id = sku.id
         and spu.pp_id = tm.id
         and spu.flbh2 = #{flbh2}
+
     </select>
 
+    <select id="select_product" parameterType="int" resultMap="select_list_by_flbh2_map">
+       select * from
+        mall_product spu
+            left join mall_sku sku on spu.id=sku.shp_id left join mall_trade_mark tm
+        on spu.pp_id=tm.id where spu.id=#{id}
+
+    </select>
 
 </mapper>
 

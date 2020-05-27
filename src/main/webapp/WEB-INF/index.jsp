@@ -58,7 +58,7 @@
                         </c:if>
                         <c:if test="${not empty user}">
                             <a href="">用户名称:${user.username}</a>
-                            <a href="">退出登录</a>
+                            <a href="logout.do">退出登录</a>
                         </c:if>
                     </li>
                     <li class="line"></li>
@@ -122,7 +122,7 @@
             <button>搜索</button>
         </div>
         <div class="shoppingcar">
-            <a href="#">我的购物车</a>
+            <a href="shopping_chart.do">我的购物车</a>
             <span class="icon1"></span>
             <span class="icon2">></span>
             <span class="icon3">8</span>
