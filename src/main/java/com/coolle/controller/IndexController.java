@@ -1,5 +1,8 @@
 package com.coolle.controller;
 
+import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.coolle.entity.MALL_PRODUCT;
 import com.coolle.entity.MALL_USER_ACCOUNT;
 import com.coolle.entity.OBJECT_MALL_ATTR;
@@ -10,14 +13,15 @@ import com.coolle.service.Impl.AttrServiceImpl;
 import com.coolle.service.Impl.ListServiceImpl;
 import com.coolle.service.ListService;
 import com.coolle.service.SpuService;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.ObjectWriter;
 import com.fasterxml.jackson.databind.util.JSONPObject;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
 
@@ -68,8 +72,9 @@ public class IndexController {
         return "index";
     }
 
-    @RequestMapping("shopping_chart")
-    public String shoppingChart(HttpSession session,ModelMap map){
+    @RequestMapping("get_shopping_chart_list")
+    @ResponseBody
+    public String getShoppingChartList(HttpSession session,ModelMap map){
 
         ArrayList<OBJECT_MALL_SKU> products = new ArrayList<>();
         MALL_USER_ACCOUNT user = (MALL_USER_ACCOUNT) session.getAttribute("user");
@@ -90,19 +95,25 @@ public class IndexController {
             }
         }
         map.put("products",products);
-        double result = 0;
-        for(OBJECT_MALL_SKU product:products){
-           result+= product.getJg() * product.getCount();
+        return  JSONArray.toJSONString(products,SerializerFeature.BrowserCompatible);
+    }
+
+    @RequestMapping("shopping_chart")
+    public String shoppingChart(HttpSession session,ModelMap map){
+        MALL_USER_ACCOUNT user = (MALL_USER_ACCOUNT) session.getAttribute("user");
+        if(user==null){
+           return "login";
         }
-        map.put("init_price",result);
 
         return  "shopping_chart";
     }
 
 
-    @RequestMapping("remove_from_shopping_chart")
+    @RequestMapping(value = "remove_from_shopping_chart",method = RequestMethod.POST)
     @ResponseBody
-    public String removeFromShoppingChart(HttpSession session, @RequestParam("prod_id") int prodId){
+    public String removeFromShoppingChart(HttpSession session, @RequestBody String data){
+        JSONObject ob = (JSONObject) JSONObject.parse(data);
+        int prodId=  ob.getInteger("prod_id");
         MALL_USER_ACCOUNT user = (MALL_USER_ACCOUNT) session.getAttribute("user");
         if(user!=null){
             try(Jedis jedis=jedisPool.getResource()){
