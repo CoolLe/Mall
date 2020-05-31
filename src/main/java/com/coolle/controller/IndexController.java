@@ -67,6 +67,11 @@ public class IndexController {
         return "login";
     }
 
+    @RequestMapping("/")
+    public String defaultIndex(HttpServletRequest request,ModelMap map){
+        return "index";
+    }
+
     @RequestMapping("index")
     public String index(HttpServletRequest request,ModelMap map){
         return "index";

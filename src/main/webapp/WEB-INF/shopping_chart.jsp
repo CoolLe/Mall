@@ -34,6 +34,18 @@
                         width="120">
                 </el-table-column>
                 <el-table-column
+                        prop="spu.shp_tp"
+                        label="图片"
+                        width="120">
+                    <template slot-scope="scope">
+                        <el-image
+                                style="width: 100px; height: 100px"
+                                :src="'upload/image/'+scope.row.spu.shp_tp">
+
+                        </el-image>
+                    </template>
+                </el-table-column>
+                <el-table-column
                         prop="sku_mch"
                         label="属性"
                         width="120">
@@ -153,6 +165,7 @@
                         for(let i=0;i<this.tableData.length;i++){
                             this.tableData[i].zj= this.tableData[i].jg* this.tableData[i].count;
                         }
+                        console.log(this.tableData);
                     })
                     .catch(error=> {
                         console.log(error);
