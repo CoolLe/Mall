@@ -139,8 +139,9 @@
             },
             checkout(){
                 var selected = this.$refs.table.store.states.selection;
-                axios.post('create_order.do',selected).then(response=>{
-                });
+                for(let i=0;i<selected.length;i++){
+                    console.log(selected[i]);
+                }
             },
             increment(index,data){
                 data.count+=1

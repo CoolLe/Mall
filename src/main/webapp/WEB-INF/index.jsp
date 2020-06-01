@@ -63,7 +63,7 @@
                     </li>
                     <li class="line"></li>
                     <!--灰色竖线，添加类“line”-->
-                    <li>我的订单</li>
+                    <li><a href="my_order.do">我的订单</a></li>
                     <li class="line"></li>
                     <li class="xsj">
                         我的京东

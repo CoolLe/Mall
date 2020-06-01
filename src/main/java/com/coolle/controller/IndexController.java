@@ -3,10 +3,8 @@ package com.coolle.controller;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
 import com.alibaba.fastjson.serializer.SerializerFeature;
-import com.coolle.entity.MALL_PRODUCT;
-import com.coolle.entity.MALL_USER_ACCOUNT;
-import com.coolle.entity.OBJECT_MALL_ATTR;
-import com.coolle.entity.OBJECT_MALL_SKU;
+import com.coolle.entity.*;
+import com.coolle.repository.OrderRepository;
 import com.coolle.repository.SpuRepository;
 import com.coolle.service.AttrService;
 import com.coolle.service.Impl.AttrServiceImpl;
@@ -28,9 +26,8 @@ import redis.clients.jedis.JedisPool;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
+import java.util.concurrent.ThreadLocalRandom;
 
 @Controller
 public class IndexController {
@@ -47,6 +44,9 @@ public class IndexController {
 
     @Autowired
     private SpuService spuService;
+
+    @Autowired
+    private OrderRepository orderRepository;
 
     @RequestMapping("goto_list")
     public String goto_list(int flbh2,ModelMap map){
@@ -76,6 +76,36 @@ public class IndexController {
     public String index(HttpServletRequest request,ModelMap map){
         return "index";
     }
+
+
+    @RequestMapping("my_order")
+    public String myOrder(HttpServletRequest request,ModelMap map){
+        return "my_order";
+    }
+
+    @RequestMapping("create_order")
+    @ResponseBody
+    public String createOrder(HttpSession session,@RequestBody List<OBJECT_MALL_SKU> data){
+        MALL_USER_ACCOUNT user = (MALL_USER_ACCOUNT) session.getAttribute("user");
+        if(user==null){
+            return "error";
+        }
+
+        int uid = user.getId();
+        String orderId = String.valueOf(System.currentTimeMillis())+
+                ThreadLocalRandom.current().nextLong()+
+                (618^uid);
+
+        for(OBJECT_MALL_SKU sku:data){
+            Order order = new Order(uid,sku.getShp_id(),orderId,sku.getCount());
+            orderRepository.insertOrder(order);
+        }
+
+        System.out.println(data);
+        return  "ok";
+    }
+
+
 
     @RequestMapping("get_shopping_chart_list")
     @ResponseBody
