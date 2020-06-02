@@ -173,11 +173,21 @@
                     .catch(error=> {
                         console.log(error);
                     });
+            },
+            getOrderList(){
+                axios.get('get_order_list.do')
+                    .then(response=>{
+                        
+                        console.log(response);
+                    })
+                    .catch(error=> {
+                        console.log(error);
+                    });
             }
 
         },
         mounted(){
-            this.get_chart_list();
+            this.getOrderList();
         },
 
     })

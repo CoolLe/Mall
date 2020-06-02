@@ -2,6 +2,15 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.coolle.repository.OrderRepository">
+    <resultMap id="selectAllDetailResult" type="com.coolle.entity.OBJECT_ORDER" autoMapping="true">
+        <association property="order" javaType="com.coolle.entity.Order" autoMapping="true">
+            <id column="mo_id" property="id"></id>
+        </association>
+        <association property="spu" javaType="com.coolle.entity.MALL_PRODUCT" autoMapping="true">
+            <id column="mp_id" property="id"></id>
+        </association>
+    </resultMap>
+
     <select id="selectAll"
         resultType="com.coolle.entity.Order">
         select * from mall_order
@@ -20,4 +29,11 @@
         null
         )
     </insert>
+
+    <select id="selectAllDetail" parameterType="int" resultMap="selectAllDetailResult" >
+       select *,mo.id as mo_id , mp.id as mp_id from mall_order as mo
+                          left join mall_product as mp
+                                    on mo.shp_id = mp.id
+        where user_id=#{userId}
+    </select>
 </mapper>

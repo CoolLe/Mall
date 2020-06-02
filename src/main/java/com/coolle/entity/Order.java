@@ -1,22 +1,21 @@
 package com.coolle.entity;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import java.util.Date;
 
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Order {
     private int id;
-    private int userId;
-    private int shpId;
-    private Date createTime;
-    private String orderId;
+    private int user_id;
+    private int shp_id;
+    private Date create_time;
+    private String order_id;
     private int count;
-
-    public Order(int userId, int shpId, String orderId, int count) {
-        this.userId = userId;
-        this.shpId = shpId;
-        this.orderId = orderId;
-        this.count = count;
-    }
 }

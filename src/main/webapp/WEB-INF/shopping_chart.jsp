@@ -138,9 +138,14 @@
                 }
             },
             checkout(){
+                // Checkout
                 var selected = this.$refs.table.store.states.selection;
-                axios.post('create_order.do',selected).then(response=>{
-                });
+                axios.post('create_order.do',selected).then(response=>{});
+
+                // Clear shopping chart and remove corresponding cache in memory database
+                for(let i=0;i<selected.length;i++){
+                    this.remove(null,selected[i]);
+                }
             },
             increment(index,data){
                 data.count+=1

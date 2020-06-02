@@ -1,5 +1,6 @@
 package com.coolle.repository;
 
+import com.coolle.entity.OBJECT_ORDER;
 import com.coolle.entity.Order;
 import com.coolle.entity.User;
 import org.springframework.stereotype.Repository;
@@ -12,4 +13,5 @@ public interface OrderRepository {
 
     void insertOrder(Order order);
 
+    List<OBJECT_ORDER> selectAllDetail(int userId);
 }
