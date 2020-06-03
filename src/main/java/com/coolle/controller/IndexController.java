@@ -108,7 +108,7 @@ public class IndexController {
             return "error";
         }
         List<OBJECT_ORDER> orders = orderRepository.selectAllDetail(user.getId());
-        return JSONArray.toJSONString(orders);
+        return JSONArray.toJSONString(orders, SerializerFeature.BrowserCompatible);
     }
 
     @RequestMapping("get_shopping_chart_list")

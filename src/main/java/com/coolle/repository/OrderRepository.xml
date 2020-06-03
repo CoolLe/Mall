@@ -9,6 +9,9 @@
         <association property="spu" javaType="com.coolle.entity.MALL_PRODUCT" autoMapping="true">
             <id column="mp_id" property="id"></id>
         </association>
+        <association property="sku" javaType="com.coolle.entity.MALL_SKU" autoMapping="true">
+            <id column="sku_id" property="id"></id>
+        </association>
     </resultMap>
 
     <select id="selectAll"
@@ -31,9 +34,10 @@
     </insert>
 
     <select id="selectAllDetail" parameterType="int" resultMap="selectAllDetailResult" >
-       select *,mo.id as mo_id , mp.id as mp_id from mall_order as mo
-                          left join mall_product as mp
-                                    on mo.shp_id = mp.id
-        where user_id=#{userId}
+       select *,mo.id as mo_id , mp.id as mp_id, sku.id as sku_id from mall_order as mo
+                  left join mall_product as mp
+                            on mo.shp_id = mp.id
+    left join mall_sku as sku on sku.shp_id = mp.id
+where user_id=#{userId}
     </select>
 </mapper>

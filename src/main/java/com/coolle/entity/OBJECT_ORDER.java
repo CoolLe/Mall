@@ -6,4 +6,5 @@ import lombok.Data;
 public class OBJECT_ORDER {
     private Order order;
     private MALL_PRODUCT spu;
+    private MALL_SKU sku;
 }

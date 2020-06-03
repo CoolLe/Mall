@@ -16,96 +16,47 @@
 </head>
 <body>
 <div id="app">
-    <el-row>
-        <el-col :offset="4" :span="18">
-            <el-table
-                    empty-text="暂无商品，快去选购吧"
-                    ref="table"
-                    :data="tableData"
-                    tooltip-effect="dark"
-                    @selection-change="handleSelectionChange">
-                <el-table-column
-                        type="selection"
-                        width="55">
-                </el-table-column>
-                <el-table-column
-                        prop="shp_id"
-                        label="商品编号"
-                        width="120">
-                </el-table-column>
-                <el-table-column
-                        prop="spu.shp_tp"
-                        label="图片"
-                        width="120">
-                    <template slot-scope="scope">
-                        <el-image
-                                style="width: 100px; height: 100px"
-                                :src="'upload/image/'+scope.row.spu.shp_tp">
+    <div v-for="(value,key,index) in data">
+        订号单：{{value[0].order.order_id}} 订单日期：{{value[0].order.create_time}}
+        <el-table
+                :data="value"
+                border
+                style="width: 100%">
 
-                        </el-image>
-                    </template>
-                </el-table-column>
-                <el-table-column
-                        prop="sku_mch"
-                        label="属性"
-                        width="120">
-                </el-table-column>
-                <el-table-column
-                        prop="spu.shp_mch"
-                        label="名称"
-                        width="120">
-                </el-table-column>
-                <el-table-column
-                        prop="jg"
-                        label="单价"
-                        width="120">
-                </el-table-column>
-                <el-table-column
-                        prop="zj"
-                        label="总价"
-                        width="120">
-                </el-table-column>
-                <el-table-column
-                        prop="count"
-                        label="数量"
-                >
-                    <template slot-scope="scope">
-                                <el-button
-                                        size="mini"
-                                        @click="increment(scope.$index, scope.row)">+</el-button>
+            <el-table-column
+                    prop="spu.shp_mch"
+                    label="名称"
+            >
+            </el-table-column>
 
-                                <span>{{scope.row.count}}</span>
+            <el-table-column
+                    prop="spu.shp_tp"
+                    label="图片"
+                    width="120">
+                <template slot-scope="scope">
+                    <el-image
+                            style="width: 100px; height: 100px"
+                            :src="'upload/image/'+scope.row.spu.shp_tp">
 
-                                <el-button
-                                        size="mini"
-                                        @click="decrement(scope.$index, scope.row)">-</el-button>
+                    </el-image>
+                </template>
+            </el-table-column>
 
+            <el-table-column
+                    prop="order.count"
+                    label="数量"
+            >
 
-                    </template>
-                </el-table-column>
+            </el-table-column>
+            <el-table-column
+                    prop="sku.jg"
+                    label="单价"
+            >
 
-                <el-table-column label="操作">
-                    <template slot-scope="scope">
-                        <el-button
-                                size="mini"
-                                type="danger"
-                                @click="remove(scope.$index, scope.row)">移除购物车</el-button>
-                    </template>
-                </el-table-column>
-            </el-table>
-        </el-col>
-    </el-row>
+            </el-table-column>
+        </el-table>
+    </div>
 
-    <el-row >
-        <el-col  :offset="4" :span="4" ><el-button size="mini"
-                                                 type="danger"
-                                                 @click="removeProducts">移除购物车</el-button></el-col>
-        <el-col  :offset="18" :span="18">
-            <el-tag type="success">¥{{this.totalPrice}}</el-tag>
-            <el-button @click="checkout">结算</el-button>
-
-        </el-col>
-    </el-row>
 </div>
 </body>
 <!-- import Vue before Element -->
@@ -119,66 +70,34 @@
         el: '#app',
         data:{
             tableData:[],
-            totalPrice:0,
-            selected:[]
+            data:[]
         }
         ,
         methods: {
-            removeProducts() {
-                var selected = this.$refs.table.store.states.selection;
-                for(let i=0;i<selected.length;i++){
-                    this.remove(null,selected[i]);
-                }
-            },
-            handleSelectionChange(val) {
-                this.totalPrice = 0
-                for(let i=0;i<val.length;i++){
-                    val[i].zj= val[i].jg* val[i].count;
-                    this.totalPrice += val[i].zj;
-                }
-            },
-            checkout(){
-                var selected = this.$refs.table.store.states.selection;
-                for(let i=0;i<selected.length;i++){
-                    console.log(selected[i]);
-                }
-            },
-            increment(index,data){
-                data.count+=1
-                data.zj = data.count*data.jg;
-            },
-            decrement(index,data){
-                if(data.count==0){
-                    return;
-                }
-                data.count-=1
-                data.zj = data.count*data.jg;
-            },
-            remove(index,data){
-                axios.post('remove_from_shopping_chart',{prod_id:data.id}).then(response=>{
-                    if(response.data==="ok"){
-                        this.get_chart_list();
-                    }
-                });
-            },
-            get_chart_list(){
-                axios.get('get_shopping_chart_list')
+
+            async getOrderList(){
+                await axios.get('get_order_list.do')
                     .then(response=>{
-                        this.tableData = response.data;
+                        this.tableData =response.data;
+                        let temp={};
+
                         for(let i=0;i<this.tableData.length;i++){
-                            this.tableData[i].zj= this.tableData[i].jg* this.tableData[i].count;
+                          let orderId = this.tableData[i].order.order_id;
+
+                          let existingOrder =  Object.keys(temp);
+                          if(existingOrder.indexOf(orderId)!=-1){
+                              //existing
+                              temp[existingOrder[existingOrder.indexOf(orderId)]]
+                              .push(this.tableData[i]);
+                          }else{
+                              // append
+                              temp[orderId] = [this.tableData[i]];
+                          }
                         }
-                        console.log(this.tableData);
-                    })
-                    .catch(error=> {
-                        console.log(error);
-                    });
-            },
-            getOrderList(){
-                axios.get('get_order_list.do')
-                    .then(response=>{
-                        
-                        console.log(response);
+                        for(let obj in temp){
+                           this.data.push(temp[obj])
+                        }
+                        console.log(this.data)
                     })
                     .catch(error=> {
                         console.log(error);
@@ -186,7 +105,7 @@
             }
 
         },
-        mounted(){
+        mounted() {
             this.getOrderList();
         },
 
