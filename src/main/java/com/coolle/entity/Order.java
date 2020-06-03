@@ -18,4 +18,5 @@ public class Order {
     private Date create_time;
     private String order_id;
     private int count;
+    private String state;
 }

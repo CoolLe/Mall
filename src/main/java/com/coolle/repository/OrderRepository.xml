@@ -25,11 +25,12 @@
         values
         (
         null,
-        #{userId},
-        #{shpId},
-        #{orderId},
+        #{user_id},
+        #{shp_id},
+        #{order_id},
         #{count},
-        null
+        null,
+        '待发货'
         )
     </insert>
 

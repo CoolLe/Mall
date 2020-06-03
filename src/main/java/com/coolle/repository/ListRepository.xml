@@ -19,7 +19,7 @@
         mall_sku sku,
         mall_trade_mark tm
         where
-        spu.id = sku.id
+        spu.id = sku.shp_id
         and spu.pp_id = tm.id
         and spu.flbh2 = #{flbh2}
 

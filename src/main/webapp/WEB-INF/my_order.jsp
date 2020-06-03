@@ -16,13 +16,19 @@
 </head>
 <body>
 <div id="app">
-    <div v-for="(value,key,index) in data">
-        订号单：{{value[0].order.order_id}} 订单日期：{{value[0].order.create_time}}
+    <el-row  v-for="(value,key,index) in data">
+        <el-col :span="18" :offset="3" style="box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1)">
+        <el-card class="box-card">
+            订号单：{{value[0].order.order_id}}订单日期：{{value[0].order.create_time}}
+
+        </el-card>
         <el-table
                 :data="value"
                 border
+                show-summary
+                :summary-method="summary"
                 style="width: 100%">
-
+            <el-table-column label="订单详情">
             <el-table-column
                     prop="spu.shp_mch"
                     label="名称"
@@ -41,21 +47,31 @@
                     </el-image>
                 </template>
             </el-table-column>
+            </el-table-column>
 
             <el-table-column
                     prop="order.count"
+                    sortable
                     label="数量"
             >
-
             </el-table-column>
             <el-table-column
                     prop="sku.jg"
+                    sortable
                     label="单价"
             >
-
             </el-table-column>
+            <el-table-column
+                    prop="order.state"
+                    sortable
+                    label="状态"
+            >
+            </el-table-column>
+
         </el-table>
-    </div>
+        <p height="400px"></p>
+        </el-col>
+    </el-row>
 
 </div>
 </body>
@@ -74,7 +90,22 @@
         }
         ,
         methods: {
-
+            summary(param){
+                let summaries = '合计： ';
+                console.log(param.data)
+                let arr = param.data;
+                let totalPrice = 0.0;
+                for(let i=0;i<arr.length;i++){
+                    let item = arr[i];
+                    if(!(item instanceof Array)){
+                        totalPrice += item.order.count* item.sku.jg;
+                        console.log(item)
+                    }
+                }
+                summaries += '\t¥';
+                summaries += totalPrice
+                return [summaries];
+            },
             async getOrderList(){
                 await axios.get('get_order_list.do')
                     .then(response=>{
@@ -102,11 +133,15 @@
                     .catch(error=> {
                         console.log(error);
                     });
+            },
+            decorateData(){
+
             }
 
         },
         mounted() {
             this.getOrderList();
+            this.decorateData();
         },
 
     })
