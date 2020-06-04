@@ -11,7 +11,9 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <script>
-
+        function to_register() {
+            $("#register_form").submit();
+        }
     </script>
     <title>注册</title>
     <style type="text/css">
@@ -115,7 +117,7 @@
                     <input type="text" name="phoneNum" placeholder="手机号" class="register-input">
                     <input type="text" name="email" placeholder="邮箱" class="register-input">
                 </form>
-                <input type="submit" name="register" value="register" class="register-submit" onclick="to_submit()"/>
+                <input type="submit" name="register" value="register" class="register-submit" onclick="to_register()"/>
             </div>
             <div class="tip">
                 已有账户? <a href="goto_login.do">返回登录</a>

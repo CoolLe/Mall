@@ -1,11 +1,14 @@
 package com.coolle.service;
 
 
-import com.coolle.entity.User;
+import com.coolle.entity.MALL_USER_ACCOUNT;
 
-import java.util.List;
 
 
 public interface UserService {
-    public List<User> findAll();
+
+
+    void register(MALL_USER_ACCOUNT mall_user_account);
+
+    boolean findUser(String currentUserName);
 }

@@ -1,7 +1,8 @@
 package com.coolle.controller;
 
 import com.coolle.entity.MALL_USER_ACCOUNT;
-import com.coolle.repository.LoginRepository;
+import com.coolle.repository.UserRepository;
+import com.coolle.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -15,9 +16,10 @@ import javax.servlet.http.HttpSession;
 public class UserController {
 
     @Autowired
-    LoginRepository loginRepository;
+    UserRepository userRepository;
 
-
+    @Autowired
+    UserService userService;
 
     @RequestMapping("goto_login")
     public String goto_login(HttpServletRequest request, ModelMap map) {
@@ -31,9 +33,8 @@ public class UserController {
 
 
     @RequestMapping("login")
-    public String login(HttpSession session, MALL_USER_ACCOUNT user){
-        //完成登入认证逻辑
-        MALL_USER_ACCOUNT select_user = loginRepository.select_user(user);
+    public String login(HttpSession session, MALL_USER_ACCOUNT mall_user_account){
+        MALL_USER_ACCOUNT select_user = userRepository.select_user(mall_user_account);
         if (select_user == null) {
             return "redirect:/login.do";
         } else {
@@ -43,15 +44,10 @@ public class UserController {
     }
 
     @RequestMapping("register")
-    public String register(HttpSession session, MALL_USER_ACCOUNT user){
-        //完成登入认证逻辑
-        MALL_USER_ACCOUNT select_user = loginRepository.select_user(user);
-        if (select_user == null) {
-            return "redirect:/login.do";
-        } else {
-            session.setAttribute("user",select_user);
-        }
-        return "redirect:/index.do";
+    public String register(HttpSession session, MALL_USER_ACCOUNT mall_user_account){
+        String currentUserName = mall_user_account.getUsername();
+        userService.findUser(currentUserName);
+        return "register";
     }
 
     @RequestMapping("logout")
