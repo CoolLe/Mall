@@ -44,15 +44,20 @@ public class UserController {
     }
 
     @RequestMapping("register")
+    @ResponseBody
     public String register(HttpSession session, MALL_USER_ACCOUNT mall_user_account){
         String currentUserName = mall_user_account.getUsername();
-        userService.findUser(currentUserName);
-        return "register";
+        if (userService.findUser(currentUserName) == null){
+            userService.register(mall_user_account);
+            session.setAttribute("user",mall_user_account);
+            return "redirect:/login.do";
+        }
+        return "redirect:/goto_register.do";
     }
 
     @RequestMapping("logout")
     public String logout(HttpSession session){
         session.removeAttribute("user");
-        return "redirect:/index.do";
+        return "redirect:/goto_register.do";
     }
 }

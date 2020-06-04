@@ -20,7 +20,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public boolean findUser(String currentUserName) {
-        return userRepository.findUser(currentUserName) != 0;
+    public MALL_USER_ACCOUNT findUser(String currentUserName) {
+        return userRepository.findUser(currentUserName);
     }
 }

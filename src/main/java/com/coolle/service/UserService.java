@@ -10,5 +10,5 @@ public interface UserService {
 
     void register(MALL_USER_ACCOUNT mall_user_account);
 
-    boolean findUser(String currentUserName);
+    MALL_USER_ACCOUNT findUser(String currentUserName);
 }

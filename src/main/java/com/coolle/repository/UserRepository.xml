@@ -14,11 +14,11 @@
         and password = #{password}
     </select>
 
-    <select id="findUser" parameterType="string" resultType="int">
+    <select id="findUser" parameterType="string" resultType="com.coolle.entity.MALL_USER_ACCOUNT">
         select * from mall_user_account where username=#{username}
     </select>
 
-    <select id="findAll" resultType="User">
+    <select id="findAll" resultType="com.coolle.entity.MALL_USER_ACCOUNT">
         select * from user
     </select>
 </mapper>
