@@ -3,7 +3,7 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.coolle.repository.OrderRepository">
     <resultMap id="selectAllDetailResult" type="com.coolle.entity.OBJECT_ORDER" autoMapping="true">
-        <association property="order" javaType="com.coolle.entity.Order" autoMapping="true">
+        <association property="order" javaType="com.coolle.entity.MALL_ORDER" autoMapping="true">
             <id column="mo_id" property="id"></id>
         </association>
         <association property="spu" javaType="com.coolle.entity.MALL_PRODUCT" autoMapping="true">
@@ -15,12 +15,12 @@
     </resultMap>
 
     <select id="selectAll"
-        resultType="com.coolle.entity.Order">
+        resultType="com.coolle.entity.MALL_ORDER">
         select * from mall_order
     </select>
 
     <insert useGeneratedKeys="true" keyColumn="id" keyProperty="id"
-            id="insertOrder" parameterType="com.coolle.entity.Order">
+            id="insertOrder" parameterType="com.coolle.entity.MALL_ORDER">
         insert into mall_order
         values
         (

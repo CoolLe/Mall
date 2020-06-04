@@ -32,6 +32,14 @@
                 });
             });
         }
+
+        function show_list() {
+            $("#classificationList").show();
+        }
+
+        function hidden_topbanner() {
+            $("#topbanner").hide();
+        }
     </script>
     <title>京东导航</title>
 </head>
@@ -51,19 +59,19 @@
                 <ul>
                     <li>
                         <c:if test="${empty user}">
-                            <a href="goto_login.do">你好，请登录</a>&nbsp;&nbsp;
+                            <a href="goto_login.do" target="_blank">你好，请登录</a>&nbsp;&nbsp;
                             <!--中间有小间距，这里用两个空格隔开-->
-                            <a href="#" class="col-red">免费注册</a>
+                            <a href="goto_register.do" class="col-red" target="_blank">免费注册</a>
                             <!--免费注册的字体为红色，所以单独给它加个类名。col-red类有important！属性，权重最高-->
                         </c:if>
                         <c:if test="${not empty user}">
-                            <a href="">用户名称:${user.username}</a>
-                            <a href="logout.do">退出登录</a>
+                            <a href="goto_center.do" target="_blank">用户名称:${user.username}</a>
+                            <a href="logout.do" target="_blank">退出登录</a>
                         </c:if>
                     </li>
                     <li class="line"></li>
                     <!--灰色竖线，添加类“line”-->
-                    <li><a href="my_order.do">我的订单</a></li>
+                    <li><a href="my_order.do" target="_blank">我的订单</a></li>
                     <li class="line"></li>
                     <li class="xsj">
                         我的京东
@@ -98,13 +106,13 @@
             </div>
         </div>
     </div>
-    <div class="topbanner" >
+    <div class="topbanner" id="topbanner">
         <!--负责通栏的盒子-->
         <div class="w tp">
             <!--版心-->
             <img src="../img/topbanner.jpg" alt="">
             <!--插入图片-->
-            <a href="javacript:;" class="close-tpbanner"></a>
+            <a href="javascript:hidden_topbanner();" class="close-tpbanner"></a>
             <!--当点击a链接时，不需要打开任何链接，所以href的值用"javacript:;"，可以用JS做交互效果-->
         </div>
     </div>
@@ -118,11 +126,11 @@
             </div>
         </div>
         <div class="search">
-            <input type="text" name="" id="" value="图书开抢"/>
+            <input type="text" name="" id="" value="" placeholder="图书开抢"/>
             <button>搜索</button>
         </div>
         <div class="shoppingcar">
-            <a href="shopping_chart.do">我的购物车</a>
+            <a href="shopping_chart.do" target="_blank">我的购物车</a>
             <span class="icon1"></span>
             <span class="icon2">></span>
             <span class="icon3">8</span>
@@ -149,17 +157,18 @@
                     <!--全部商品分类和下拉列表的父亲盒子-->
                     <div class="dt">
                         <!--全部商品分类盒子，后面再做下拉列表盒子-->
-                        <a href="#">全部商品分类</a>
+                        <a href="#" onmouseover="show_list()">全部商品分类</a>
                     </div>
-                    <div class="dd">
-                        <ul id="class_1_ul">
-                            <li>
-                                <a href="">测试</a>
-                                <div id="class_2_ul" class="two_list">
+                    <div class="dd" id="classificationList" style="display: none">
+                        <div class="items">
+                            <ul id="class_1_ul" >
+                                <li>
+                                    <div id="class_2_ul" class="two_list" style="">
 
-                                </div>
-                            </li>
-                        </ul>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
                         <div class="items">
                             <h3>服装鞋帽</h3>
                             <span>></span>

@@ -11,7 +11,7 @@ import java.util.Date;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Order {
+public class MALL_ORDER {
     private int id;
     private int user_id;
     private int shp_id;

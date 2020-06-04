@@ -1,8 +1,8 @@
 <%--
   Created by IntelliJ IDEA.
   User: 谈一乐
-  Date: 2020/5/19
-  Time: 10:38
+  Date: 2020/6/4
+  Time: 10:18
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -11,11 +11,9 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <script>
-        function to_submit() {
-            $("#login_form").submit();
-        }
+
     </script>
-    <title>登录</title>
+    <title>注册</title>
     <style type="text/css">
         /* 清除默认样式 同时给所有元素设置样式 */
         * {
@@ -42,9 +40,9 @@
             background-image: linear-gradient(to right, #84fab0, #8fd3f4);
         }
         /* 这个是登录区域 */
-        .login-wrap {
-            width: 200px;
-            height: 400px;
+        .register-wrap {
+            width: 300px;
+            height: 500px;
             background-color: rgba(170, 170, 255, 0.3);
             /* 居中开始 */
             position: relative;
@@ -56,7 +54,7 @@
             padding: 0 50px; /* 左右留出空余 */
         }
         /* 给最上面的Login这个标题设置样式 */
-        .login-title {
+        .register-title {
             font-size: 25px;
             text-align: center;
             line-height: 100px;
@@ -64,7 +62,7 @@
             font-weight: bold;
         }
         /* 输入设置样式 */
-        .login-form .login-input{
+        .register-form .register-input{
             display: block; /* input 标签是行内元素 */
             width: 100%;
             border: 0;
@@ -74,12 +72,12 @@
             outline: none; /* 输入框边框去掉 */
             background-color: transparent; /* 透明色 */
         }
-        .login-form .login-input::placeholder {
+        .register-form .register-input::placeholder {
             text-transform: uppercase; /* 设置placeholder内容的大小写 */
             color: #bdbdbd;
         }
         /* 给登录提交按钮设置样式 */
-        .login-form .login-submit {
+        .register-form .register-submit {
             width: 100%;
             line-height: 30px;
             border: 0;
@@ -103,25 +101,26 @@
         }
     </style>
 </head>
-
-
 <body>
     <div class="wrap">
-        <div class="login-wrap">
-        <div class="login-title">
-            Login
+        <div class="register-wrap">
+            <div class="register-title">
+                注册
+            </div>
+            <div class="register-form">
+                <form action="register.do" id="register_form" method="post">
+                    <input type="text" name="username" placeholder="用户名" class="register-input">
+                    <input type="password" name="password" placeholder="密码" class="register-input">
+                    <input type="text" name="nickname" placeholder="昵称" class="register-input">
+                    <input type="text" name="phoneNum" placeholder="手机号" class="register-input">
+                    <input type="text" name="email" placeholder="邮箱" class="register-input">
+                </form>
+                <input type="submit" name="register" value="register" class="register-submit" onclick="to_submit()"/>
+            </div>
+            <div class="tip">
+                已有账户? <a href="goto_login.do">返回登录</a>
+            </div>
         </div>
-        <div class="login-form">
-            <form action="login.do" id="login_form" method="post">
-                <input type="text" name="username" placeholder="username" class="login-input">
-                <input type="password" name="password" placeholder="password" class="login-input">
-            </form>
-            <input type="submit" name="login" value="Login" class="login-submit" onclick="to_submit()"/>
-        </div>
-        <div class="tip">
-            Don't have account? <a href="goto_register.do">Sign up</a>
-        </div>
-    </div>
     </div>
 </body>
 </html>

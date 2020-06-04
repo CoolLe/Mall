@@ -1,17 +1,16 @@
 package com.coolle.repository;
 
 import com.coolle.entity.OBJECT_ORDER;
-import com.coolle.entity.Order;
-import com.coolle.entity.User;
+import com.coolle.entity.MALL_ORDER;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
 @Repository
 public interface OrderRepository {
-    List<Order> selectAll();
+    List<MALL_ORDER> selectAll();
 
-    void insertOrder(Order order);
+    void insertOrder(MALL_ORDER order);
 
     List<OBJECT_ORDER> selectAllDetail(int userId);
 }

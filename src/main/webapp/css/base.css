@@ -413,7 +413,7 @@ s, i, em {
     float: left;
     /*每个div里有两个元素，字向左浮动，＞图标向右浮动*/
 }
-.dropdown .items span {
+.dropdown .items span li{
     float: right;
     margin-right: 15px;
     font-family: "宋体";

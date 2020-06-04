@@ -21,12 +21,16 @@
             //获取参数
             // var attrJson = {};
             var jsonStr = "flbh2=" +${flbh2};
-
-            $("#paramArea input[name='shxparam']").each(function (i,data) {
+            console.log(jsonStr);
+            var $paramArea = $("#paramArea input[name='shxparam']");
+            console.log($paramArea);
+            $("#paramArea input[name='shxparam']").each( (i,data) => {
+                console.log(data);
                 var json = $.parseJSON(data.value);
                 // attrJson["list_attr["+i+"].shxm_id"] = json.shxm_id;
                 // attrJson["list_attr["+i+"].shxzh_id"] = json.shxzh_id;
                 jsonStr = jsonStr + "&list_attr["+i+"].shxm_id="+json.shxm_id+"&list_attr["+i+"].shxzh_id="+json.shxzh_id;
+                console.log(jsonStr);
             });
             //异步提交
             //刷新商品列表

@@ -55,10 +55,6 @@ public class IndexController {
         return "list";
     }
 
-    @RequestMapping("goto_login")
-    public String goto_login(HttpServletRequest request, ModelMap map) {
-        return "login";
-    }
 
     @RequestMapping("/")
     public String defaultIndex(HttpServletRequest request, ModelMap map) {
@@ -70,10 +66,18 @@ public class IndexController {
         return "index";
     }
 
+    @RequestMapping("goto_center")
+    public String goto_center(HttpServletRequest request, ModelMap map) {
+        return "center";
+    }
 
     @RequestMapping("my_order")
-    public String myOrder(HttpServletRequest request, ModelMap map) {
-        return "my_order";
+    public String myOrder(HttpSession session, ModelMap map) {
+        MALL_USER_ACCOUNT user = (MALL_USER_ACCOUNT) session.getAttribute("user");
+        if (user != null) {
+            return "my_order";
+        }
+        return "login";
     }
 
 
@@ -91,7 +95,7 @@ public class IndexController {
                 (618 ^ uid);
 
         for (OBJECT_MALL_SKU sku : data) {
-            Order order =  Order.builder()
+            MALL_ORDER order =  MALL_ORDER.builder()
                     .user_id(uid).shp_id(sku.getShp_id()).order_id(orderId).count(sku.getCount()).build();
             orderRepository.insertOrder(order);
         }
