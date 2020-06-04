@@ -24,11 +24,6 @@ import java.util.concurrent.ThreadLocalRandom;
 
 @Controller
 public class IndexController {
-    private static final String shoppingChartPrefix = "mall:shoppingchart:";
-
-    @Autowired
-    private JedisPool jedisPool;
-
     @Autowired
     private AttrService attrService;
 
@@ -38,8 +33,6 @@ public class IndexController {
     @Autowired
     private SpuService spuService;
 
-    @Autowired
-    private OrderRepository orderRepository;
 
     @RequestMapping("goto_list")
     public String goto_list(int flbh2, ModelMap map) {
@@ -71,124 +64,5 @@ public class IndexController {
         return "center";
     }
 
-    @RequestMapping("my_order")
-    public String myOrder(HttpSession session, ModelMap map) {
-        MALL_USER_ACCOUNT user = (MALL_USER_ACCOUNT) session.getAttribute("user");
-        if (user != null) {
-            return "my_order";
-        }
-        return "login";
-    }
 
-
-    @RequestMapping("create_order")
-    @ResponseBody
-    public String createOrder(HttpSession session, @RequestBody List<OBJECT_MALL_SKU> data) {
-        MALL_USER_ACCOUNT user = (MALL_USER_ACCOUNT) session.getAttribute("user");
-        if (user == null) {
-            return "error";
-        }
-
-        int uid = user.getId();
-        String orderId = String.valueOf(System.currentTimeMillis()) +
-                ThreadLocalRandom.current().nextLong() + "3" +
-                (618 ^ uid);
-
-        for (OBJECT_MALL_SKU sku : data) {
-            MALL_ORDER order =  MALL_ORDER.builder()
-                    .user_id(uid).shp_id(sku.getShp_id()).order_id(orderId).count(sku.getCount()).build();
-            orderRepository.insertOrder(order);
-        }
-
-        System.out.println(data);
-        return "ok";
-    }
-
-    @RequestMapping("get_order_list")
-    @ResponseBody
-    public String getOrderList(HttpSession session) {
-        MALL_USER_ACCOUNT user = (MALL_USER_ACCOUNT) session.getAttribute("user");
-        if (user == null) {
-            return "error";
-        }
-        List<OBJECT_ORDER> orders = orderRepository.selectAllDetail(user.getId());
-        return JSONArray.toJSONString(orders, SerializerFeature.BrowserCompatible);
-    }
-
-    @RequestMapping("get_shopping_chart_list")
-    @ResponseBody
-    public String getShoppingChartList(HttpSession session, ModelMap map) {
-
-        ArrayList<OBJECT_MALL_SKU> products = new ArrayList<>();
-        MALL_USER_ACCOUNT user = (MALL_USER_ACCOUNT) session.getAttribute("user");
-        if (user != null) {
-            try (Jedis jedis = jedisPool.getResource()) {
-                Set<String> chart = jedis.smembers("mall:shoppingchart:" + user.getId());
-                for (String prodId : chart) {
-                    OBJECT_MALL_SKU sku = listService.get_product(Integer.parseInt(prodId));
-                    final String countKey = shoppingChartPrefix + user.getId() + ":" + prodId;
-                    String count = jedis.get(countKey);
-                    if (count != null) {
-                        sku.setCount(Integer.parseInt(count));
-                    } else {
-                        sku.setCount(1);
-                    }
-                    products.add(sku);
-                }
-            }
-        }
-        map.put("products", products);
-        return JSONArray.toJSONString(products, SerializerFeature.BrowserCompatible);
-    }
-
-    @RequestMapping("shopping_chart")
-    public String shoppingChart(HttpSession session, ModelMap map) {
-        MALL_USER_ACCOUNT user = (MALL_USER_ACCOUNT) session.getAttribute("user");
-        if (user == null) {
-            return "login";
-        }
-
-        return "shopping_chart";
-    }
-
-
-    @RequestMapping(value = "remove_from_shopping_chart", method = RequestMethod.POST)
-    @ResponseBody
-    public String removeFromShoppingChart(HttpSession session, @RequestBody String data) {
-        JSONObject ob = (JSONObject) JSONObject.parse(data);
-        int prodId = ob.getInteger("prod_id");
-        MALL_USER_ACCOUNT user = (MALL_USER_ACCOUNT) session.getAttribute("user");
-        if (user != null) {
-            try (Jedis jedis = jedisPool.getResource()) {
-                jedis.srem("mall:shoppingchart:" + user.getId(), String.valueOf(prodId));
-                final String countKey = shoppingChartPrefix + user.getId() + ":" + prodId;
-                jedis.del(countKey);
-            }
-            return "ok";
-        }
-        return "error";
-
-    }
-
-    @RequestMapping("add_to_shopping_chart")
-    @ResponseBody
-    public String addToShoppingChart(HttpSession session, @RequestParam("prod_id") int prodId) {
-
-        MALL_USER_ACCOUNT user = (MALL_USER_ACCOUNT) session.getAttribute("user");
-        if (user != null) {
-            try (Jedis jedis = jedisPool.getResource()) {
-                jedis.sadd(shoppingChartPrefix + user.getId(), String.valueOf(prodId));
-                final String countKey = shoppingChartPrefix + user.getId() + ":" + prodId;
-                String existingCount = jedis.get(countKey);
-                if (existingCount != null) {
-                    jedis.set(countKey, String.valueOf(Integer.parseInt(existingCount) + 1));
-                } else {
-                    jedis.set(countKey, "1");
-                }
-            }
-            return "ok";
-        }
-        return "error";
-
-    }
 }

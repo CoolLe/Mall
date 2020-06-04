@@ -17,7 +17,6 @@
 </head>
 <body>
     <jsp:include page="attrList.jsp"></jsp:include>
-    <hr>
     <div id="skuListInner">
         <jsp:include page="skuList.jsp"></jsp:include>
     </div>
