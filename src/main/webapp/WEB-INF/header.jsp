@@ -1,9 +1,8 @@
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: 谈一乐
-  Date: 2020/5/16
-  Time: 15:51
+  Date: 2020/6/5
+  Time: 14:30
   To change this template use File | Settings | File Templates.
 --%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
@@ -12,9 +11,6 @@
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <link rel="stylesheet" href="../css/base.css">
-    <link rel="stylesheet" href="../css/index.css">
-<%--    <link href="css/cssreset.css" rel="stylesheet">--%>
-<%--    <link href="css/main.css" rel="stylesheet">--%>
     <script>
         $(function () {
             $.getJSON("js/json/class_1.js",function (data) {
@@ -33,16 +29,16 @@
             });
         }
 
+        function hidden_topbanner() {
+            $("#topbanner").hide();
+        }
+
         function show_list() {
             $("#classificationList").show();
         }
 
         function hide_list() {
             $("#classificationList").hide();
-        }
-
-        function hidden_topbanner() {
-            $("#topbanner").hide();
         }
     </script>
     <title>Mall导航</title>
@@ -157,7 +153,7 @@
                 <!--添加版心盒子-->
                 <div class="dropdown">
                     <!--全部商品分类和下拉列表的父亲盒子-->
-                    <div class="dt">
+                    <div class="dt" id="classification">
                         <!--全部商品分类盒子，后面再做下拉列表盒子-->
                         <a href="#" onclick="show_list()" ondblclick="hide_list()">全部商品分类</a>
                     </div>
@@ -230,35 +226,6 @@
                     <a href="#"></a>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="banner clearfix">
-        <!--banner是通栏大盒子-->
-        <a href="#" class="bg"></a>
-        <!--因为banner盒子里不止一个a标签，为了防止继承给其他a标签，这里给a标签加个类名-->
-        <div class="w main">
-            <!--引入版心w,main类负责是轮播图和右侧部分的父盒子-->
-            <div class="slider">
-                <!--轮播图大盒子-->
-                <a href="#" ><img src="../img/slider1.jpg" alt=""/></a>
-                <!--插入图片-->
-                <ul class="circle">
-                    <!-- 小圆点-->
-                    <li class="current">1</li>
-                    <!--当前小圆点，-->
-                    <li>2</li>
-                    <li>3</li>
-                    <li>4</li>
-                    <li>5</li>
-                    <li>6</li>
-                </ul>
-                <div class="arrow">   <!--左右两个三角-->
-                    <a href="javascript:;" class="arrow-l"><</a>
-                    <!--点击事件，后期可用js左交互-->
-                    <a href="javascript:;" class="arrow-r">></a>
-                </div>
-            </div>
-            <div class="news">这是右边的部分，先放着撑布局</div>
         </div>
     </div>
 </body>

@@ -45,14 +45,13 @@ public class UserController {
 
     @RequestMapping("register")
     @ResponseBody
-    public String register(HttpSession session, MALL_USER_ACCOUNT mall_user_account){
+    public boolean register(HttpSession session, MALL_USER_ACCOUNT mall_user_account){
         String currentUserName = mall_user_account.getUsername();
         if (userService.findUser(currentUserName) == null){
             userService.register(mall_user_account);
-            session.setAttribute("user",mall_user_account);
-            return "redirect:/login.do";
+            return true;
         }
-        return "redirect:/goto_register.do";
+        return false;
     }
 
     @RequestMapping("logout")

@@ -12,8 +12,9 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <script>
         function to_submit() {
-            $("#login_form").submit();
+                $("#login_form").submit();
         }
+
     </script>
     <title>登录</title>
     <style type="text/css">
@@ -109,17 +110,17 @@
     <div class="wrap">
         <div class="login-wrap">
         <div class="login-title">
-            Login
+            登录
         </div>
         <div class="login-form">
             <form action="login.do" id="login_form" method="post">
                 <input type="text" name="username" placeholder="username" class="login-input">
                 <input type="password" name="password" placeholder="password" class="login-input">
             </form>
-            <input type="submit" name="login" value="Login" class="login-submit" onclick="to_submit()"/>
+            <input type="submit" name="login" value="登录" class="login-submit" onclick="to_submit()"/>
         </div>
         <div class="tip">
-            Don't have account? <a href="goto_register.do">Sign up</a>
+            没有账户?<a href="goto_register.do">点击注册</a>
         </div>
     </div>
     </div>

@@ -10,11 +10,6 @@
 <head>
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.0.min.js"></script>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <script>
-        function to_register() {
-            $("#register_form").submit();
-        }
-    </script>
     <title>注册</title>
     <style type="text/css">
         /* 清除默认样式 同时给所有元素设置样式 */
@@ -110,19 +105,25 @@
                 注册
             </div>
             <div class="register-form">
-                <form action="register.do" id="register_form" method="post">
+                <form action="register.do" id="register_form" method="post" onsubmit="">
                     <input type="text" name="username" placeholder="用户名" class="register-input">
                     <input type="password" name="password" placeholder="密码" class="register-input">
+                    <input type="password" name="repassword" placeholder="确认密码" class="register-input">
                     <input type="text" name="nickname" placeholder="昵称" class="register-input">
                     <input type="text" name="phoneNum" placeholder="手机号" class="register-input">
                     <input type="text" name="email" placeholder="邮箱" class="register-input">
                 </form>
-                <input type="submit" name="register" value="register" class="register-submit" onclick="to_register()"/>
+                <input type="submit" name="register" value="register" class="register-submit" onclick="checkForm()"/>
             </div>
             <div class="tip">
                 已有账户? <a href="goto_login.do">返回登录</a>
             </div>
         </div>
     </div>
+    <script>
+        function to_register() {
+            $("#register_form").submit();
+        }
+    </script>
 </body>
 </html>
