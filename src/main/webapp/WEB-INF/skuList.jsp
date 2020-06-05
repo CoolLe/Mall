@@ -18,6 +18,25 @@
 </head>
 <body>
 <div id="app">
+    <el-card>
+    <c:forEach items="${list_attr}" var="attr">
+        <el-card>
+        <el-row>
+                ${attr.shxm_mch}:
+                    <c:forEach items="${attr.list_value}" var="val">
+                        <el-radio-group v-model="checkList_${attr.id}">
+                            <el-radio-button label="${attr.id}_${val.id}"
+                                         href="javascript:save_param(${attr.id},${val.id},'${val.shxzh}${val.shxzh_mch}');">
+                                    ${val.shxzh}${val.shxzh_mch}
+                            </el-radio-button>
+                        </el-radio-group>
+                    </c:forEach>
+        </el-row>
+        </el-card>
+    </c:forEach>
+    </el-card>
+
+
     <el-row :gutter="8">
     <c:forEach items="${list_sku}" var="sku">
         <el-col :span="6">
@@ -64,7 +83,9 @@
         el: '#app',
         data: function() {
             return {
-                checkList:[]
+                <c:forEach items="${list_attr}" var="attr">
+                checkList_${attr.id}:[],
+                </c:forEach>
             }
         },
         methods:{
