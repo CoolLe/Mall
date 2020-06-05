@@ -108,12 +108,11 @@
                 <form action="register.do" id="register_form" method="post" onsubmit="">
                     <input type="text" name="username" placeholder="用户名" class="register-input">
                     <input type="password" name="password" placeholder="密码" class="register-input">
-                    <input type="password" name="repassword" placeholder="确认密码" class="register-input">
                     <input type="text" name="nickname" placeholder="昵称" class="register-input">
                     <input type="text" name="phoneNum" placeholder="手机号" class="register-input">
                     <input type="text" name="email" placeholder="邮箱" class="register-input">
                 </form>
-                <input type="submit" name="register" value="register" class="register-submit" onclick="checkForm()"/>
+                <input type="submit" name="register" value="注册" class="register-submit" onclick="to_register()"/>
             </div>
             <div class="tip">
                 已有账户? <a href="goto_login.do">返回登录</a>

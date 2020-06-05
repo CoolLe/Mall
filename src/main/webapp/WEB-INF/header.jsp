@@ -30,10 +30,6 @@
             });
         }
 
-        function hidden_topbanner() {
-            $("#topbanner").hide();
-        }
-
         function show_list() {
             $("#classificationList").show();
         }
@@ -104,16 +100,6 @@
             </div>
         </div>
     </div>
-    <div class="topbanner" id="topbanner">
-        <!--负责通栏的盒子-->
-        <div class="w tp">
-            <!--版心-->
-            <img src="../img/topbanner.jpg" alt="">
-            <!--插入图片-->
-            <a href="javascript:hidden_topbanner();" class="close-tpbanner"></a>
-            <!--当点击a链接时，不需要打开任何链接，所以href的值用"javacript:;"，可以用JS做交互效果-->
-        </div>
-    </div>
     <div class="w" style="height: 110px">
         <div class="logo">
             <a href="http://www.jd.com" target="_blank" class="jd-a" title="京东">京东</a>
@@ -161,53 +147,13 @@
                     </div>
                     <div class="dd" id="classificationList" style="display: none">
                         <div class="items">
-                            <ul id="class_1_ul" >
+                            <ul id="class_1_ul" style="background-color:#B1191A;width: 100%">
                                 <li>
-                                    <div id="class_2_ul" class="two_list" style="">
+                                    <div id="class_2_ul" class="two_list" style="background-color:#B1191A;float:right;position:relative;margin-right:10px;width:60px;">
 
                                     </div>
                                 </li>
                             </ul>
-                        </div>
-                        <div class="items">
-                            <h3>服装鞋帽</h3>
-                            <span>></span>
-                        </div>
-                        <div class="items">
-                            <h3>家用电器</h3>
-                            <span>></span>
-                        </div>
-                        <div class="items">
-                            <h3>办公器材</h3>
-                            <span>></span>
-                        </div>
-                        <div class="items">
-                            <h3>化妆美容</h3>
-                            <span>></span>
-                        </div>
-                        <div class="items">
-                            <h3>母婴用品</h3>
-                            <span>></span>
-                        </div>
-                        <div class="items">
-                            <h3>手机数码</h3>
-                            <span>></span>
-                        </div>
-                        <div class="items">
-                            <h3>家居生活</h3>
-                            <span>></span>
-                        </div>
-                        <div class="items">
-                            <h3>箱包首饰</h3>
-                            <span>></span>
-                        </div>
-                        <div class="items">
-                            <h3>食品饮料</h3>
-                            <span>></span>
-                        </div>
-                        <div class="items">
-                            <h3>电脑用品</h3>
-                            <span>></span>
                         </div>
                     </div>
                 </div>

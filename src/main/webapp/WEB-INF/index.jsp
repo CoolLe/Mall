@@ -164,53 +164,13 @@
                     </div>
                     <div class="dd" id="classificationList" style="display: none">
                         <div class="items">
-                            <ul id="class_1_ul" >
+                            <ul id="class_1_ul" style="background-color:#B1191A;width: 100%">
                                 <li>
-                                    <div id="class_2_ul" class="two_list" style="">
+                                    <div id="class_2_ul" class="two_list" style="background-color:#B1191A;float:right;position:relative;margin-right:10px;width:60px;">
 
                                     </div>
                                 </li>
                             </ul>
-                        </div>
-                        <div class="items">
-                            <h3>服装鞋帽</h3>
-                            <span>></span>
-                        </div>
-                        <div class="items">
-                            <h3>家用电器</h3>
-                            <span>></span>
-                        </div>
-                        <div class="items">
-                            <h3>办公器材</h3>
-                            <span>></span>
-                        </div>
-                        <div class="items">
-                            <h3>化妆美容</h3>
-                            <span>></span>
-                        </div>
-                        <div class="items">
-                            <h3>母婴用品</h3>
-                            <span>></span>
-                        </div>
-                        <div class="items">
-                            <h3>手机数码</h3>
-                            <span>></span>
-                        </div>
-                        <div class="items">
-                            <h3>家居生活</h3>
-                            <span>></span>
-                        </div>
-                        <div class="items">
-                            <h3>箱包首饰</h3>
-                            <span>></span>
-                        </div>
-                        <div class="items">
-                            <h3>食品饮料</h3>
-                            <span>></span>
-                        </div>
-                        <div class="items">
-                            <h3>电脑用品</h3>
-                            <span>></span>
                         </div>
                     </div>
                 </div>
@@ -259,7 +219,7 @@
                     <a href="javascript:;" class="arrow-r">></a>
                 </div>
             </div>
-            <div class="news">这是右边的部分，先放着撑布局</div>
+            <div class="news"></div>
         </div>
     </div>
 </body>
