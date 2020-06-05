@@ -13,6 +13,12 @@
         </association>
     </resultMap>
 
+    <select id="select_list_by_search" parameterType="string" resultMap="select_list_by_flbh2_map">
+        SELECT * FROM mall_product as mp inner join mall_sku as ms
+        on mp.id = ms.shp_id left join mall_trade_mark as mtm on mtm.id = mp.pp_id
+        where mp.shp_msh like CONCAT('%',#{content},'%') or mp.shp_msh like CONCAT('%',#{content},'%');
+    </select>
+
     <select id="select_list_by_flbh2" parameterType="int" resultMap="select_list_by_flbh2_map">
         select * from
         mall_product spu,
@@ -20,8 +26,8 @@
         mall_trade_mark tm
         where
         spu.id = sku.shp_id
+        and spu.pp_id = tm.id
         and spu.flbh2 = #{flbh2}
-
     </select>
 
     <select id="select_product" parameterType="int" resultMap="select_list_by_flbh2_map">

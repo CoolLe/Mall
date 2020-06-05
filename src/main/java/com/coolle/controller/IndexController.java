@@ -8,6 +8,7 @@ import com.coolle.repository.OrderRepository;
 import com.coolle.service.AttrService;
 import com.coolle.service.ListService;
 import com.coolle.service.SpuService;
+import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
@@ -33,6 +34,13 @@ public class IndexController {
     @Autowired
     private SpuService spuService;
 
+    @RequestMapping("select_list")
+    public String select_list(@Param("content")String content, ModelMap map) {
+        //根据搜索出商品列表
+        List<OBJECT_MALL_SKU> list_sku = listService.get_list_by_search(content);
+        map.put("list_sku", list_sku);
+        return "list";
+    }
 
     @RequestMapping("goto_list")
     public String goto_list(int flbh2, ModelMap map) {

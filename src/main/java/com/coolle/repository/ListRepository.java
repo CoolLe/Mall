@@ -11,4 +11,6 @@ public interface ListRepository {
     OBJECT_MALL_SKU select_product(int id);
     
     List<OBJECT_MALL_SKU> select_list_by_attr(HashMap<Object, Object> hashMap);
+
+    List<OBJECT_MALL_SKU> select_list_by_search(String content);
 }

@@ -67,4 +67,11 @@ public class ListServiceImpl implements ListService {
 
         return list_sku;
     }
+
+    @Override
+    public List<OBJECT_MALL_SKU> get_list_by_search(String content) {
+
+        List<OBJECT_MALL_SKU> list_sku = listRepository.select_list_by_search(content);
+        return list_sku;
+    }
 }

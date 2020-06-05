@@ -9,4 +9,6 @@ public interface ListService {
     OBJECT_MALL_SKU get_product(int kid);
     
     List<OBJECT_MALL_SKU> get_list_by_attr(List<MALL_SKU_ATTR_VALUE> list_attr, int flbh2);
+
+    List<OBJECT_MALL_SKU> get_list_by_search(String content);
 }
