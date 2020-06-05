@@ -23,4 +23,10 @@ public class UserServiceImpl implements UserService {
     public MALL_USER_ACCOUNT findUser(String currentUserName) {
         return userRepository.findUser(currentUserName);
     }
+
+    @Override
+    public MALL_USER_ACCOUNT select_user(MALL_USER_ACCOUNT mall_user_account) {
+        MALL_USER_ACCOUNT select_user = userRepository.select_user(mall_user_account);
+        return select_user;
+    }
 }

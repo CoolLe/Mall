@@ -7,21 +7,22 @@ import com.coolle.entity.MALL_USER_ACCOUNT;
 import com.coolle.entity.OBJECT_MALL_SKU;
 import com.coolle.entity.OBJECT_ORDER;
 import com.coolle.repository.OrderRepository;
+import com.coolle.service.OrderService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
 import javax.servlet.http.HttpSession;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 @Controller
 public class OrderController {
+
     @Autowired
-    private OrderRepository orderRepository;
+    OrderService orderService;
 
     @RequestMapping("my_order")
     public String myOrder(HttpSession session, ModelMap map) {
@@ -49,7 +50,7 @@ public class OrderController {
         for (OBJECT_MALL_SKU sku : data) {
             MALL_ORDER order =  MALL_ORDER.builder()
                     .user_id(uid).shp_id(sku.getShp_id()).order_id(orderId).count(sku.getCount()).build();
-            orderRepository.insertOrder(order);
+            orderService.addOrder(order);
         }
 
         return "ok";
@@ -62,7 +63,8 @@ public class OrderController {
         if (user == null) {
             return "error";
         }
-        List<OBJECT_ORDER> orders = orderRepository.selectAllDetail(user.getId());
+        List<OBJECT_ORDER> orders = orderService.selectAllDetail(user.getId());
+
         return JSONArray.toJSONString(orders, SerializerFeature.BrowserCompatible);
     }
 }

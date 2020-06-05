@@ -13,8 +13,10 @@
     <meta charset="UTF-8">
     <!-- import CSS -->
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <title>我的订单</title>
 </head>
 <body>
+<jsp:include page="header.jsp"></jsp:include>
 <div id="app">
     <el-row  v-for="(value,key,index) in data">
         <el-col :span="18" :offset="3" style="box-shadow: 0 2px 12px 0 rgba(0, 0, 0, 0.1)">

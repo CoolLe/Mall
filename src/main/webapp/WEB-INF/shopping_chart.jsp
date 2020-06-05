@@ -13,8 +13,10 @@
     <meta charset="UTF-8">
     <!-- import CSS -->
     <link rel="stylesheet" href="https://unpkg.com/element-ui/lib/theme-chalk/index.css">
+    <title>我的购物车</title>
 </head>
 <body>
+<jsp:include page="header.jsp"></jsp:include>
 <div id="app">
     <el-row>
         <el-col :offset="4" :span="18">

@@ -42,7 +42,6 @@
             $("#classificationList").hide();
         }
     </script>
-    <title>Mall导航</title>
 </head>
 <body>
     <div class="header">

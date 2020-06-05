@@ -16,9 +16,6 @@ import javax.servlet.http.HttpSession;
 public class UserController {
 
     @Autowired
-    UserRepository userRepository;
-
-    @Autowired
     UserService userService;
 
     @RequestMapping("goto_login")
@@ -34,7 +31,7 @@ public class UserController {
 
     @RequestMapping("login")
     public String login(HttpSession session, MALL_USER_ACCOUNT mall_user_account){
-        MALL_USER_ACCOUNT select_user = userRepository.select_user(mall_user_account);
+        MALL_USER_ACCOUNT select_user = userService.select_user(mall_user_account);
         if (select_user == null) {
             return "redirect:/login.do";
         } else {

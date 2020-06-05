@@ -1,10 +1,6 @@
 package com.coolle.controller;
 
-import com.alibaba.fastjson.JSONArray;
-import com.alibaba.fastjson.JSONObject;
-import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.coolle.entity.*;
-import com.coolle.repository.OrderRepository;
 import com.coolle.service.AttrService;
 import com.coolle.service.ListService;
 import com.coolle.service.SpuService;
@@ -13,15 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
-import redis.clients.jedis.Jedis;
-import redis.clients.jedis.JedisPool;
-
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
-import java.util.concurrent.ThreadLocalRandom;
 
 @Controller
 public class IndexController {
@@ -30,9 +19,6 @@ public class IndexController {
 
     @Autowired
     private ListService listService;
-
-    @Autowired
-    private SpuService spuService;
 
     @RequestMapping("select_list")
     public String select_list(@Param("content")String content, ModelMap map) {
@@ -55,7 +41,6 @@ public class IndexController {
         map.put("flbh2", flbh2);
         return "list";
     }
-
 
     @RequestMapping("/")
     public String defaultIndex(HttpServletRequest request, ModelMap map) {

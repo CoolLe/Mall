@@ -12,7 +12,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import redis.clients.jedis.Jedis;
 import redis.clients.jedis.JedisPool;
-
 import javax.servlet.http.HttpSession;
 import java.util.ArrayList;
 import java.util.Set;
@@ -26,7 +25,6 @@ public class ShoppingChartController {
 
     @Autowired
     private ListService listService;
-
 
     @RequestMapping("get_shopping_chart_list")
     @ResponseBody
